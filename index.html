@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Canvas Reflection Survey: What You Told Us and What Happens Next</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --maroon:#7A1B2B; --maroon-deep:#56121E; --gold:#C49A2C; --gold-soft:#F2E4BC;
+  --ink:#1D1A1B; --muted:#5E5759; --line:#DDD6D3; --bg:#FFFFFF; --panel:#F5F2F1;
+  --dis-strong:#8A8385; --dis:#BDB5B7; --agr:#B8566A; --agr-strong:#7A1B2B;
+  --serif:"Newsreader", Georgia, "Times New Roman", serif;
+  --sans:"Libre Franklin", "Helvetica Neue", Arial, sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --maroon:#E08A9A; --maroon-deep:#F0B5C0; --gold:#E0BD5C; --gold-soft:#3A3120;
+    --ink:#F1ECEC; --muted:#B5ABAD; --line:#3C3436; --bg:#171314; --panel:#211B1C;
+    --dis-strong:#8E8587; --dis:#5A5254; --agr:#A5485B; --agr-strong:#D9788A;
+  }
+}
+:root[data-theme="dark"]{
+  --maroon:#E08A9A; --maroon-deep:#F0B5C0; --gold:#E0BD5C; --gold-soft:#3A3120;
+  --ink:#F1ECEC; --muted:#B5ABAD; --line:#3C3436; --bg:#171314; --panel:#211B1C;
+  --dis-strong:#8E8587; --dis:#5A5254; --agr:#A5485B; --agr-strong:#D9788A;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+a{color:var(--maroon)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+.prose{max-width:66ch}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.15;margin:0}
+h2{font-size:clamp(1.8rem,3.4vw,2.5rem);margin-bottom:.6em}
+h3{font-size:1.3rem;margin-bottom:.35em}
+p{margin:0 0 1em}
+section{padding:clamp(56px,8vw,96px) 0;border-top:1px solid var(--line)}
+.lede{font-size:1.15rem;color:var(--muted)}
+
+/* Hero */
+.masthead strong{color:var(--ink);font-weight:600}
+.hero{padding:clamp(28px,5vw,56px) 0 clamp(40px,6vw,72px);border-top:6px solid var(--maroon)}
+.masthead{display:flex;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;font-size:.85rem;color:var(--muted);padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:clamp(28px,5vw,48px)}
+.masthead strong{color:var(--ink);font-weight:600}
+.thanks{display:flex;gap:clamp(16px,3vw,32px);align-items:baseline;flex-wrap:wrap;padding-left:clamp(16px,2.5vw,24px);border-left:3px solid var(--gold);margin-bottom:clamp(36px,6vw,64px)}
+.thanks-big{flex:0 0 auto;font-family:var(--serif);font-style:italic;font-weight:600;font-size:clamp(1.9rem,3.6vw,2.6rem);line-height:1;color:var(--maroon-deep);margin:0}
+.thanks-body{flex:1 1 32ch;margin:0;font-size:1.02rem;line-height:1.6;color:var(--muted);max-width:70ch}
+.thanks-body strong{color:var(--ink);font-weight:600}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(32px,6vw,80px);align-items:center}
+.hero h1{font-size:clamp(2.5rem,5.8vw,4.4rem);font-weight:700;letter-spacing:-.018em;line-height:1.05;color:var(--maroon-deep);text-wrap:balance}
+.hero .sub{font-family:var(--serif);font-size:clamp(1.15rem,2vw,1.4rem);line-height:1.45;margin-top:.9em;color:var(--ink);max-width:36ch}
+.hero .meta{margin-top:1.2em;margin-bottom:0;color:var(--muted);font-size:.9rem}
+.jumpbar{margin-top:clamp(36px,5vw,56px);padding-top:20px;border-top:1px solid var(--line)}
+.jumpbar-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px 16px;flex-wrap:wrap;margin-bottom:12px}
+.jump-head{font-size:.85rem;font-weight:600;color:var(--muted)}
+.jump-main{font-size:.92rem;font-weight:600;color:var(--maroon);text-decoration:none}
+.jump-main span{display:inline-block;transition:transform .2s ease}
+.jump-main:hover span{transform:translateX(3px)}
+.toc{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line)}
+.toc li{border-bottom:1px solid var(--line)}
+.toc li:not(:nth-child(4n)){border-right:1px solid var(--line)}
+.toc a{position:relative;display:block;height:100%;padding:18px 40px 18px 18px;text-decoration:none;color:var(--ink);transition:background-color .3s ease}
+.toc .no{display:block;font-size:.72rem;font-weight:600;letter-spacing:.1em;color:var(--maroon);opacity:.7;margin-bottom:8px;font-variant-numeric:tabular-nums}
+.toc .t{display:block;font-family:var(--serif);font-size:1.15rem;font-weight:600;line-height:1.2;color:var(--maroon-deep)}
+.toc .d{display:block;font-size:.82rem;line-height:1.4;color:var(--muted);margin-top:4px}
+.toc a::after{content:"\2192";position:absolute;right:18px;top:18px;color:var(--maroon);opacity:0;transform:translateX(-6px);transition:opacity .3s ease,transform .3s ease}
+.toc a::before{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--maroon);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.toc a:hover,.toc a:focus-visible{background:var(--panel)}
+.toc a:hover::after,.toc a:focus-visible::after{opacity:1;transform:none}
+.toc a:hover::before,.toc a:focus-visible::before{transform:scaleX(1)}
+.toc a:focus-visible{outline-offset:-3px}
+.rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+.thanks.rise{animation-delay:.08s}
+.hero-grid > .rise:first-child{animation-delay:.16s}
+.dots-card.rise{animation-delay:.26s}
+.jumpbar.rise{animation-delay:.36s}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (max-width:820px){
+  .toc{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .toc li:not(:nth-child(4n)){border-right:0}
+  .toc li:nth-child(odd){border-right:1px solid var(--line)}
+  .toc a{padding:14px 32px 14px 14px}
+  .toc .t{font-size:1.02rem}
+}
+@media (prefers-reduced-motion: reduce){.rise{animation:none}.jump-main span,.toc a,.toc a::after,.toc a::before{transition:none}}
+.dots-card{background:var(--panel);border-radius:4px;padding:clamp(20px,3vw,32px)}
+.dots{display:grid;grid-template-columns:repeat(9,1fr);gap:clamp(6px,1.2vw,10px);margin:0;padding:0;list-style:none}
+.dot{aspect-ratio:1;border-radius:50%;background:var(--line);transition:background-color .35s ease, transform .35s ease}
+.dot.on.sa{background:var(--agr-strong)}
+.dot.on.a{background:var(--agr)}
+.dot.on.d{background:transparent;box-shadow:inset 0 0 0 2px var(--dis-strong)}
+.dot.on.sd{background:var(--dis-strong)}
+.dots-caption{margin-top:18px;font-size:.92rem;color:var(--muted)}
+.dots-caption b{color:var(--ink);font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:.85rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:50%;display:inline-block}
+.sw.sa{background:var(--agr-strong)} .sw.a{background:var(--agr)}
+.sw.d{box-shadow:inset 0 0 0 2px var(--dis-strong)} .sw.sd{background:var(--dis-strong)}
+
+.theme{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 16px)}
+.theme:target{animation:flash 1.6s ease}
+@keyframes flash{0%{background:var(--gold-soft)}100%{background:transparent}}
+@media (prefers-reduced-motion: reduce){.theme:target{animation:none}}
+/* Who responded */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px;margin-top:32px}
+.fact{border-left:3px solid var(--gold);padding-left:16px}
+.fact .n{font-family:var(--serif);font-size:2.2rem;font-weight:600;line-height:1;color:var(--maroon-deep)}
+.fact .l{font-size:.95rem;color:var(--muted);margin-top:6px}
+.note{background:var(--gold-soft);border-radius:4px;padding:18px 20px;margin-top:32px;font-size:.97rem}
+.note p:last-child{margin:0}
+
+/* Diverging bars */
+.likert{margin-top:28px}
+.lrow{display:grid;grid-template-columns:minmax(0,15rem) minmax(0,1fr) 4.5rem;gap:16px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.lrow:last-child{border-bottom:0}
+.lrow .q{font-size:.95rem;line-height:1.35}
+.track{position:relative;height:26px}
+.axis{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--ink);opacity:.55}
+.seg{position:absolute;top:0;bottom:0}
+.seg.sd{background:var(--dis-strong)} .seg.d{background:var(--dis)}
+.seg.a{background:var(--agr)} .seg.sa{background:var(--agr-strong)}
+.seg{cursor:pointer;transition:filter .15s ease, box-shadow .15s ease}
+.seg:hover,.seg.active{filter:brightness(1.12);box-shadow:inset 0 0 0 2px var(--ink)}
+.seg:focus-visible{outline:3px solid var(--gold);outline-offset:2px;z-index:1}
+.tip{position:fixed;z-index:50;pointer-events:none;background:var(--ink);color:var(--bg);font-size:.88rem;line-height:1.35;padding:8px 12px;border-radius:4px;box-shadow:0 4px 14px rgba(0,0,0,.18);opacity:0;transform:translateY(4px);transition:opacity .12s ease, transform .12s ease;white-space:nowrap}
+.tip.on{opacity:1;transform:none}
+.tip b{font-family:var(--serif);font-size:1.15rem;margin-right:4px}
+.tip span{display:block;opacity:.75;font-size:.8rem}
+@media (prefers-reduced-motion: reduce){.tip,.seg{transition:none}}
+.pct{font-family:var(--serif);font-weight:600;font-size:1.25rem;text-align:right;color:var(--maroon-deep)}
+.lrow.flag .q::after{content:"Focus area";display:inline-block;margin-left:8px;font-size:.72rem;font-weight:600;color:var(--maroon);border:1px solid var(--maroon);border-radius:3px;padding:0 6px;vertical-align:2px}
+.likert-head{display:grid;grid-template-columns:minmax(0,15rem) minmax(0,1fr) 4.5rem;gap:16px;font-size:.82rem;color:var(--muted)}
+.likert-head{align-items:end;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.key{display:flex;flex-wrap:wrap;gap:6px 18px}
+.key span{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.ksw{display:inline-block;width:14px;height:14px;border-radius:2px}
+.ksw.sd{background:var(--dis-strong)} .ksw.d{background:var(--dis)}
+.ksw.a{background:var(--agr)} .ksw.sa{background:var(--agr-strong)}
+.h-total{text-align:right;line-height:1.2}
+
+/* Concerns */
+.concern-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,72px);align-items:start}
+.hbar{margin:18px 0}
+.hbar .top{display:flex;justify-content:space-between;gap:12px;font-size:.98rem;margin-bottom:6px}
+.hbar .top b{font-family:var(--serif);font-size:1.15rem;color:var(--maroon-deep)}
+.hbar .top b small{font-family:var(--sans);font-size:.78rem;font-weight:400;color:var(--muted)}
+.callout{display:flex;gap:16px;align-items:center;background:var(--panel);border-left:4px solid var(--maroon);padding:16px 20px;margin:8px 0 18px;font-size:.98rem}
+.callout .big{font-family:var(--serif);font-size:2.6rem;font-weight:700;line-height:1;color:var(--maroon-deep)}
+.callout em{font-style:normal;color:var(--muted)}
+.hbar .bar{height:12px;background:var(--panel);border-radius:2px;overflow:hidden}
+.hbar .fill{height:100%;background:var(--maroon)}
+blockquote{margin:0 0 22px;padding:0 0 0 18px;border-left:3px solid var(--maroon);font-family:var(--serif);font-size:1.2rem;line-height:1.4}
+blockquote cite{display:block;font-family:var(--sans);font-style:normal;font-size:.85rem;color:var(--muted);margin-top:6px}
+
+.concern-head{max-width:66ch;margin-bottom:clamp(20px,3vw,32px)}
+#concerns blockquote{font-size:1.12rem;margin-bottom:18px}
+.behind{font-family:var(--sans);font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:32px 0 12px;padding-top:20px;border-top:1px solid var(--line)}
+.insights{margin:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px 28px}
+.insights div{margin:0}
+.insights dt{font-family:var(--serif);font-weight:600;font-size:1.05rem;color:var(--maroon-deep);grid-column:auto}
+.insights dd{margin:4px 0 0;font-size:.92rem;line-height:1.5;color:var(--muted)}
+@media (max-width:560px){.insights{grid-template-columns:1fr}}
+/* Decision */
+.decision{background:var(--maroon-deep);color:#fff;border-top:0}
+:root[data-theme="dark"] .decision{background:#2A1419}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .decision{background:#2A1419}}
+.decision h2{color:#fff;font-size:clamp(2rem,4.4vw,3.2rem);max-width:22ch}
+.decision .lede{color:rgba(255,255,255,.82);max-width:60ch}
+.reasons{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:32px;margin-top:40px}
+.reason h3{color:var(--gold);font-size:1.2rem}
+:root .decision .reason h3{color:#E6C466}
+.reason p{color:rgba(255,255,255,.88);font-size:.98rem}
+.decision .fine{margin-top:28px;font-size:.92rem;color:rgba(255,255,255,.72);max-width:70ch}
+
+/* You said / we'll do */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 28px}
+.filters button{font:inherit;font-size:.9rem;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--maroon);border-color:var(--maroon);color:#fff}
+.theme{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:clamp(20px,4vw,48px);padding:28px 0;border-top:1px solid var(--line)}
+.theme[hidden]{display:none}
+.theme .said h3{margin-bottom:.2em}
+.theme .count{font-size:.9rem;color:var(--muted);margin-bottom:.8em}
+.theme .said p{font-size:.97rem;color:var(--muted)}
+.theme .do{background:var(--panel);border-radius:4px;padding:20px 22px}
+.theme .do .kind{display:inline-block;font-size:.8rem;font-weight:600;color:var(--maroon);margin-bottom:8px}
+.theme .do ul{margin:0;padding-left:1.1em}
+.theme .do li{margin-bottom:.45em;font-size:.97rem}
+
+.guides{margin:14px 0 0;font-size:.92rem}
+.aigrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px 32px;padding:18px}
+.aigroup h4{font-family:var(--sans);font-size:.8rem;font-weight:600;color:var(--muted);margin:0 0 8px}
+.aigroup ul{list-style:none;margin:0;padding:0}
+.aigroup li{margin-bottom:12px;font-size:.92rem}
+.aigroup li a{font-weight:600}
+.aigroup li span{display:block;color:var(--muted);font-size:.86rem;line-height:1.45}
+.bp .aigroup li span{color:var(--ink);font-size:.9rem}
+.bp .aigroup li{position:relative;padding-left:14px}
+.bp .aigroup li::before{content:"";position:absolute;left:0;top:.6em;width:5px;height:5px;border-radius:50%;background:var(--maroon)}
+.snippet{border-top:1px solid var(--line);padding:14px 18px 18px}
+.snippet-head{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.8rem;font-weight:600;color:var(--muted);margin-bottom:8px}
+.copy-btn{font:inherit;font-size:.8rem;font-weight:600;color:var(--maroon);background:var(--bg);border:1px solid var(--maroon);border-radius:999px;padding:5px 14px;cursor:pointer;transition:background-color .2s ease,color .2s ease}
+.copy-btn:hover{background:var(--maroon);color:#fff}
+.copy-btn.done{background:var(--maroon);color:#fff}
+.snippet pre{margin:0;overflow-x:auto;background:var(--panel);border-radius:4px;padding:12px 14px;font-size:.82rem;line-height:1.5}
+.snippet code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
+.ainote{margin:0;padding:12px 18px 16px;font-size:.86rem;color:var(--muted);border-top:1px solid var(--line)}
+.howto{font-family:var(--sans);font-size:.95rem;font-weight:600;margin:16px 0 8px}
+.req{margin:0 0 14px}
+.req dt{font-weight:600;font-size:.93rem;margin-top:10px}
+.req dd{margin:2px 0 0;font-size:.93rem}
+.req a{overflow-wrap:anywhere}
+.why{font-size:.93rem;margin:0 0 12px;padding:12px 14px;background:var(--bg);border-left:3px solid var(--gold);border-radius:2px}
+.tracker{grid-column:1 / -1;border:1px solid var(--line);border-radius:4px;margin-top:4px}
+.tracker summary{cursor:pointer;padding:14px 18px;font-weight:600;color:var(--maroon)}
+.tracker summary span{font-weight:400;color:var(--muted)}
+.tracker[open] summary{border-bottom:1px solid var(--line)}
+.tbl{overflow-x:auto}
+.tracker table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:720px}
+.tracker th,.tracker td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--line)}
+.tracker thead th{font-size:.78rem;font-weight:600;color:var(--muted);background:var(--panel)}
+.tracker tbody th{font-weight:600;width:26%}
+.tracker tbody tr:last-child th,.tracker tbody tr:last-child td{border-bottom:0}
+.tracker td.st{width:15%}
+.tracker td.res{width:18%}
+.na{color:var(--muted)}
+.pill{display:inline-block;font-size:.74rem;font-weight:600;padding:2px 8px;border-radius:999px;margin:0 4px 4px 0;white-space:nowrap}
+.pill.ok{background:#E3F0E6;color:#1E5A2E}
+.pill.rev{background:var(--gold-soft);color:#6B4F0A}
+.pill.fr{background:#F3E2E5;color:var(--maroon-deep)}
+.pill.ask{background:var(--panel);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+:root[data-theme="dark"] .pill.ok{background:#1F3A27;color:#A9DDB6}
+:root[data-theme="dark"] .pill.rev{color:#F0D58A}
+:root[data-theme="dark"] .pill.fr{background:#3A1F25;color:#F0B5C0}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .pill.ok{background:#1F3A27;color:#A9DDB6}
+  :root:not([data-theme="light"]) .pill.rev{color:#F0D58A}
+  :root:not([data-theme="light"]) .pill.fr{background:#3A1F25;color:#F0B5C0}
+}
+.resources{margin-top:48px;background:var(--panel);border-radius:4px;padding:24px 26px}
+.resources p{color:var(--muted);font-size:.97rem}
+.resources ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px 28px}
+.resources li a{font-weight:600}
+.resources li span{display:block;font-size:.88rem;color:var(--muted)}
+
+/* Timeline */
+.timeline{list-style:none;margin:32px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+.timeline li{padding:0 24px 0 0;position:relative}
+.timeline li::before{content:"";display:block;height:4px;background:var(--line);margin-bottom:18px}
+.timeline li:first-child::before{background:var(--maroon)}
+.timeline .when{font-family:var(--serif);font-size:1.5rem;font-weight:600;color:var(--maroon-deep);margin-bottom:8px}
+.timeline ul{margin:0;padding-left:1.1em;font-size:.97rem}
+.timeline ul li{padding:0;margin-bottom:.5em}
+.timeline ul li::before{display:none}
+
+/* Loop */
+.loop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:32px;margin-top:28px}
+.loop-grid h3{font-size:1.15rem}
+.loop-grid p{font-size:.97rem;color:var(--muted)}
+.sign{margin-top:48px;font-family:var(--serif);font-size:1.1rem}
+.sign span{display:block;font-family:var(--sans);font-size:.9rem;color:var(--muted)}
+
+details.method{margin-top:48px;border-top:1px solid var(--line);padding-top:18px;font-size:.93rem;color:var(--muted)}
+details.method summary{cursor:pointer;color:var(--ink);font-weight:600}
+details.method p{margin-top:12px;max-width:75ch}
+footer{padding:32px 0 48px;font-size:.85rem;color:var(--muted);border-top:1px solid var(--line)}
+
+@media (max-width:820px){
+  .hero-grid,.concern-grid,.theme{grid-template-columns:1fr}
+  .timeline{grid-template-columns:1fr;gap:28px}
+  .lrow,.likert-head{grid-template-columns:1fr 3.6rem}
+  .lrow .q{grid-column:1 / -1}
+  .likert-head .h-q{display:none}
+  .likert-head .key{grid-column:1 / 2}
+}
+@media (prefers-reduced-motion: reduce){ .dot{transition:none} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="masthead rise">
+      <span><strong>University of Redlands</strong> Information Technology</span>
+      <span>Canvas Reflection Survey final results, fall 2026</span>
+    </div>
+    <div class="thanks rise">
+      <p class="thanks-big">Thank you.</p>
+      <p class="thanks-body"><strong>To all 90 of you who completed the survey: your voice has been heard.</strong> You took time during a busy start to the term to tell us, candidly and in detail, what works, what doesn't, and what a change would cost you. We read every comment, and what you shared shaped the decision and every commitment on this page.</p>
+    </div>
+    <div class="hero-grid">
+      <div class="rise">
+        <h1>Canvas stays. Now we make it work better for you.</h1>
+        <p class="sub">Switching platforms would cost more than it would give back. Here's what you said, the decision it led to, and the support you asked for.</p>
+        <p class="meta">90 faculty responded between September 23 and October 4, 2026.</p>
+      </div>
+      <figure class="dots-card rise" style="margin:0">
+        <ul class="dots" id="dots" aria-hidden="true"></ul>
+        <figcaption class="dots-caption">
+          <b>79 of the 89 of you who answered (89%)</b> agree that Canvas meets the needs of your teaching and course design. Each dot is one response.
+          <div class="legend">
+            <span><i class="sw sa"></i>Strongly agree (45)</span>
+            <span><i class="sw a"></i>Agree (34)</span>
+            <span><i class="sw d"></i>Disagree (5)</span>
+            <span><i class="sw sd"></i>Strongly disagree (5)</span>
+          </div>
+        </figcaption>
+      </figure>
+    </div>
+    <nav class="jumpbar rise" aria-label="Jump to what you raised in your comments">
+      <div class="jumpbar-top">
+        <span class="jump-head">Jump to what you raised in your comments</span>
+        <a class="jump-main" href="#support">See all commitments <span aria-hidden="true">→</span></a>
+      </div>
+      <ol class="toc">
+        <li><a href="#t-gradebook"><span class="no">01</span><span class="t">Gradebook</span><span class="d">Weights, schemes, extra credit</span></a></li>
+        <li><a href="#t-access"><span class="no">02</span><span class="t">Course access</span><span class="d">TAs, guests, and the Registrar</span></a></li>
+        <li><a href="#t-design"><span class="no">03</span><span class="t">Course design</span><span class="d">Layout, templates, and HTML</span></a></li>
+        <li><a href="#t-files"><span class="no">04</span><span class="t">Files and new terms</span><span class="d">Visibility and rollover</span></a></li>
+        <li><a href="#t-quizzes"><span class="no">05</span><span class="t">Quizzes</span><span class="d">Question banks and proctoring</span></a></li>
+        <li><a href="#t-ai"><span class="no">06</span><span class="t">AI features</span><span class="d">Controls and resources</span></a></li>
+        <li><a href="#t-integrations"><span class="no">07</span><span class="t">Integrations</span><span class="d">Connecting tools securely</span></a></li>
+        <li><a href="#t-inbox"><span class="no">08</span><span class="t">Inbox and updates</span><span class="d">Messaging and release notes</span></a></li>
+      </ol>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section id="who">
+  <div class="wrap">
+    <h2>Who we heard from</h2>
+    <div class="prose"><p class="lede">Most responses came from experienced Canvas users, which matters: these are the people with the most course content at stake in any change.</p></div>
+    <div class="facts">
+      <div class="fact"><div class="n">90</div><div class="l">faculty responses, all anonymous</div></div>
+      <div class="fact"><div class="n">80%</div><div class="l">have used Canvas here for three years or more (72 of 90)</div></div>
+      <div class="fact"><div class="n">63</div><div class="l">from Arts and Sciences, with 13 from Business and Society, 12 from Education, and 2 from Architecture, Design and Media</div></div>
+      <div class="fact"><div class="n">81</div><div class="l">of you described what would worry you about a switch</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="ratings">
+  <div class="wrap">
+    <h2>How Canvas is working for you</h2>
+    <div class="prose"><p class="lede">Hover over or tap any part of a bar to see its exact share. Satisfaction is high across the board. The two weakest areas, the gradebook and tool integrations, are where roughly one in six of you disagreed, so that's where we'll focus first.</p></div>
+    <div class="likert-head">
+      <span class="h-q"></span>
+      <div class="key" aria-label="Color key">
+        <span><i class="ksw sd"></i>Strongly disagree</span>
+        <span><i class="ksw d"></i>Disagree</span>
+        <span><i class="ksw a"></i>Agree</span>
+        <span><i class="ksw sa"></i>Strongly agree</span>
+      </div>
+      <span class="h-total">Total agree</span>
+    </div>
+    <div class="likert" id="likert" role="list"></div>
+  </div>
+</section>
+
+<section id="concerns">
+  <div class="wrap">
+    <div class="concern-head">
+      <h2>What a switch would cost you</h2>
+      <p class="lede">We asked what would concern you most if the University considered a new LMS. 81 of you gave a substantive answer.</p>
+    </div>
+    <div class="concern-grid">
+      <div>
+        <div class="callout"><span class="big">86%</span><span>named losing content, retraining, or both <em>(70 of 81)</em>. The central concern is the cost of the transition, not missing features.</span></div>
+        <div id="concernBars"></div>
+      </div>
+      <div>
+        <blockquote>“Loss of content — that crushed me in the shift from Moodle!”<cite>Faculty member, Arts and Sciences</cite></blockquote>
+        <blockquote>“Constantly switching LMSs is exceedingly frustrating for both faculty and students.”<cite>Faculty member, Los Angeles campus</cite></blockquote>
+        <blockquote>“Pick one and stay with it.”<cite>Faculty member, School of Education</cite></blockquote>
+        <h3 class="behind">Behind the numbers</h3>
+        <dl class="insights">
+          <div><dt>More than files</dt>
+          <dd>Quizzes, question banks, rubrics, formatting, student records, and whole course structures.</dd></div>
+          <div><dt>Time, not technology</dt>
+          <dd>Retraining was framed as lost hours, and several of you tied another migration to overload and burnout.</dd></div>
+          <div><dt>Change fatigue</dt>
+          <dd>After Blackboard, Moodle, and Canvas, many see little to gain from another platform doing the same work.</dd></div>
+          <div><dt>Beyond your own courses</dt>
+          <dd>Students, adjunct faculty, fully online programs, and support capacity would all feel the disruption.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="comments">
+  <div class="wrap">
+    <div class="concern-grid">
+      <div>
+        <h2>What you added in your final comments</h2>
+        <p class="lede">46 of you left additional comments at the end of the survey. The overall sentiment favors continuity.</p>
+        <div class="callout"><span class="big">65%</span><span>endorsed Canvas or asked to keep it <em>(30 of 46)</em>. Only one comment rejected Canvas outright.</span></div>
+        <div id="commentBars"></div>
+      </div>
+      <div>
+        <h3 style="margin-top:.4em">Support isn't the same as satisfied</h3>
+        <p>Nine of you paired an endorsement with a criticism. The position we heard most often was that Canvas has real limitations, but switching would be worse. We read that as a mandate to fix what's frustrating, not as a reason to stop listening.</p>
+        <p>Your comments pointed to specific improvements: visual design and customization, AI controls and defaults, file visibility, grading workflow, the Inbox, how Instructure communicates updates, and the quality of course design. Each one appears in the commitments below.</p>
+        <blockquote>“The Canvas support that Redlands offers is terrific.”<cite>Adjunct faculty member, Marin campus</cite></blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="decision" id="decision">
+  <div class="wrap">
+    <h2>Our decision: the University will not pursue a new LMS.</h2>
+    <p class="lede">Canvas remains our learning management system. The time and energy a migration would have consumed goes instead into making Canvas fit your teaching more closely.</p>
+    <div class="reasons">
+      <div class="reason">
+        <h3>It already meets your needs</h3>
+        <p>89% agree Canvas meets their teaching needs, 88% find it easy to use, and 91% find it reliable. Agreement ranged from 77% in Business and Society to 92% in Education.</p>
+      </div>
+      <div class="reason">
+        <h3>The cost of change is the top concern</h3>
+        <p>86% of concern responses named content loss, retraining, or both. Those are real hours taken from teaching, and the disruption would reach students, adjuncts, and online programs too.</p>
+      </div>
+      <div class="reason">
+        <h3>Your frustrations are fixable in place</h3>
+        <p>What you asked for is better grading options, more control over course layout, and easier access for students and colleagues. Most of that is training, settings, or policy, not a new platform.</p>
+      </div>
+    </div>
+    <p class="fine">Several of you told us a switch would only make sense with clear, faculty-agreed benefits. We agree with that standard. Any future proposal would need a compelling benefit case, reliable full-fidelity migration of your content, real training and support capacity, and faculty involvement from the start.</p>
+    <p class="fine">A few of you asked whether cost, or a decision already made, was behind this survey. These results are the basis for this decision, and we're sharing them in full so you can see that for yourselves.</p>
+  </div>
+</section>
+
+<section id="support">
+  <div class="wrap">
+    <h2>You asked, here's what we'll do</h2>
+    <div class="prose"><p class="lede">We read every comment and grouped your requests by theme. Each one is matched to the kind of response it needs: support we can offer right away, a policy we need to review with campus partners, or a request we'll take to Instructure, the company behind Canvas.</p></div>
+    <div class="filters" role="group" aria-label="Filter by type of response">
+      <button type="button" data-f="all" aria-pressed="true">All themes</button>
+      <button type="button" data-f="support" aria-pressed="false">Support and training</button>
+      <button type="button" data-f="policy" aria-pressed="false">Policy and settings</button>
+      <button type="button" data-f="vendor" aria-pressed="false">Requests to Instructure</button>
+    </div>
+
+    <article id="t-gradebook" class="theme" data-k="support vendor">
+      <div class="said">
+        <h3>A more flexible gradebook</h3>
+        <div class="count">19 comments, and 16% disagreed that the gradebook meets their needs</div>
+        <p>Weighting individual assignments or weighting them equally within a category, letter grades on each assignment, extra credit, counting only the top scores in a group, a grace period before late penalties, partial attendance credit, separate gradebooks for sections sharing a course, and grading schemes that don't sink a student over one zero. Two of you said final grades still happen in Excel.</p>
+      </div>
+      <div class="do">
+        <span class="kind">Support and training, plus requests to Instructure</span>
+        <ul>
+          <li>Short how-to guides covering weighting, extra credit, drop rules, late policies, and grading schemes that you can revisit anytime.</li>
+          <li>One-on-one help setting up a gradebook that matches your syllabus. <a href="https://outlook.office365.com/owa/calendar/InstructionalTechnologyServices@uredlands.onmicrosoft.com/bookings/" target="_blank" rel="noopener">Book an appointment</a>.</li>
+          <li>Anything Canvas can't do today, we'll document and submit to Instructure as a feature request on your behalf.</li>
+        </ul>
+        <p class="guides">Guides available now: <a href="https://redlands.instructure.com/courses/9979/pages/advance-assignments" target="_blank" rel="noopener">weighting</a>, <a href="https://redlands.instructure.com/courses/9979/pages/rubrics" target="_blank" rel="noopener">rubrics</a>, <a href="https://redlands.instructure.com/courses/9979/pages/grading-schemes-and-transfering-grades-to-colleague" target="_blank" rel="noopener">grading schemes</a>, and <a href="https://redlands.instructure.com/courses/9979/pages/cross-listing" target="_blank" rel="noopener">cross-listing</a>.</p>
+      </div>
+      <details class="tracker">
+        <summary>See every gradebook request and where it stands <span>(16 requests)</span></summary>
+        <div class="tbl"><table>
+          <thead><tr><th scope="col">What you asked for</th><th scope="col">Status</th><th scope="col">What we'll do</th><th scope="col">Guide</th></tr></thead>
+          <tbody><tr><th scope="row">Weights and grade calculation are hard to set up</th><td class="st"><span class="pill ok">Guide available</span></td><td>We're updating the weighting guide and giving it its own page.</td><td class="res"><a href="https://redlands.instructure.com/courses/9979/pages/advance-assignments" target="_blank" rel="noopener">Weighting and advanced assignments</a></td></tr><tr><th scope="row">Weight individual assignments, not just groups</th><td class="st"><span class="pill ok">Guide available</span><span class="pill fr">Feature request</span></td><td>Points within an assignment group can do this today; we'll also ask Instructure for direct weighting.</td><td class="res"><a href="https://redlands.instructure.com/courses/9979/pages/advance-assignments" target="_blank" rel="noopener">Weighting and advanced assignments</a></td></tr><tr><th scope="row">Weight assignments equally within a category</th><td class="st"><span class="pill rev">In review</span><span class="pill fr">Feature request</span></td><td>We're reviewing workarounds and will submit a feature request.</td><td class="res"><a href="https://redlands.instructure.com/courses/9979/pages/advance-assignments" target="_blank" rel="noopener">Weighting and advanced assignments</a></td></tr><tr><th scope="row">Count only the top X scores in a group</th><td class="st"><span class="pill rev">In review</span><span class="pill fr">Feature request</span></td><td>Different from dropping the lowest scores; we're checking options and will submit a request.</td><td class="res"><a href="https://redlands.instructure.com/courses/9979/pages/advance-assignments" target="_blank" rel="noopener">Weighting and advanced assignments</a></td></tr><tr><th scope="row">Grade the quality of peer reviewers</th><td class="st"><span class="pill rev">In review</span></td><td>We're looking at Canvas's updated peer review grading and will publish a guide.</td><td class="res"><a href="https://redlands.instructure.com/courses/9979/pages/advance-assignments" target="_blank" rel="noopener">Weighting and advanced assignments</a></td></tr><tr><th scope="row">Reorder items on a rubric</th><td class="st"><span class="pill ok">Guide available</span></td><td>Canvas's new rubric editor supports this.</td><td class="res"><a href="https://redlands.instructure.com/courses/9979/pages/rubrics" target="_blank" rel="noopener">Rubrics</a></td></tr><tr><th scope="row">Weight parts of a quiz differently</th><td class="st"><span class="pill rev">In review</span></td><td>We're reviewing the quiz guide to see what's possible.</td><td class="res"><a href="https://redlands.instructure.com/courses/9979/pages/quizzes" target="_blank" rel="noopener">Quizzes</a></td></tr><tr><th scope="row">Letter grades (A through F) as grade entries</th><td class="st"><span class="pill ok">Guide available</span></td><td>Grading schemes let you enter and display letter grades.</td><td class="res"><a href="https://redlands.instructure.com/courses/9979/pages/grading-schemes-and-transfering-grades-to-colleague" target="_blank" rel="noopener">Grading schemes</a></td></tr><tr><th scope="row">Average a 0 as an F (0.0) rather than a 0%</th><td class="st"><span class="pill ok">Guide available</span></td><td>A grading scheme changes how scores display and convert. We're also exploring a campus-wide scheme.</td><td class="res"><a href="https://redlands.instructure.com/courses/9979/pages/grading-schemes-and-transfering-grades-to-colleague" target="_blank" rel="noopener">Grading schemes</a></td></tr><tr><th scope="row">Grade each assignment on a 4-point scale</th><td class="st"><span class="pill rev">In review</span></td><td>Canvas is built around points and percentages; we're checking what a scheme can do for you.</td><td class="res"><a href="https://redlands.instructure.com/courses/9979/pages/grading-schemes-and-transfering-grades-to-colleague" target="_blank" rel="noopener">Grading schemes</a></td></tr><tr><th scope="row">Separate gradebooks for sections in one course</th><td class="st"><span class="pill rev">In review</span></td><td>We're reviewing gradebook filtering by section alongside cross-listing.</td><td class="res"><a href="https://redlands.instructure.com/courses/9979/pages/cross-listing" target="_blank" rel="noopener">Cross-listing</a></td></tr><tr><th scope="row">Extra credit when grading by percentage</th><td class="st"><span class="pill fr">Feature request</span></td><td>We'll share current extra credit approaches; this limitation needs a feature request.</td><td class="res"><span class='na'>None yet</span></td></tr><tr><th scope="row">Show the class average for each assignment</th><td class="st"><span class="pill rev">In review</span><span class="pill fr">Feature request</span></td><td>We're researching options and will submit a request.</td><td class="res"><span class='na'>None yet</span></td></tr><tr><th scope="row">A grace period before late penalties start</th><td class="st"><span class="pill fr">Feature request</span></td><td>Not possible in Canvas today; we'll submit a request.</td><td class="res"><span class='na'>None yet</span></td></tr><tr><th scope="row">Partial credit in the Attendance tool</th><td class="st"><span class="pill fr">Feature request</span></td><td>We'll share a rubric-based attendance approach that supports partial credit, and submit a request.</td><td class="res"><a href="https://redlands.instructure.com/courses/9979/pages/rubrics" target="_blank" rel="noopener">Rubrics</a></td></tr><tr><th scope="row">A more flexible, easier gradebook in general</th><td class="st"><span class="pill ask">Tell us more</span></td><td>Four of you asked for this broadly. A one-on-one session helps us find exactly what's getting in the way.</td><td class="res"><span class='na'>None yet</span></td></tr></tbody>
+        </table></div>
+      </details>
+    </article>
+
+    <article id="t-access" class="theme" data-k="policy">
+      <div class="said">
+        <h3>Access for students, TAs, and colleagues</h3>
+        <div class="count">4 comments, several with strong feeling</div>
+        <p>Students stuck in add/drop or registration holds lose access to readings in the first weeks. You want to add TAs, co-teaching colleagues, guest visitors, reviewers for tenure letters, and graduate auditors, and to keep some material available after a term ends.</p>
+      </div>
+      <div class="do">
+        <span class="kind">Policy and settings</span>
+        <p class="why"><strong>Why faculty can't add people directly.</strong> Course enrollment is protected under FERPA. Giving every instructor open access to add people to their courses would put the University out of compliance, so each addition has to go through a documented request.</p>
+        <p class="why"><strong>Student enrollment belongs to the Registrar.</strong> The Registrar governs add/drop and controls when students are pushed into Canvas. IT has no role in that process, so questions about a student's access during add/drop or a registration hold should go to the Registrar.</p>
+        <h4 class="howto">How to request access</h4>
+        <dl class="req">
+          <dt>Teaching assistants</dt>
+          <dd>Email both <a href="mailto:canvas_support@redlands.edu">canvas_support@redlands.edu</a> and <a href="mailto:registrar@redlands.edu">registrar@redlands.edu</a> with the course number and the student's name.</dd>
+          <dt>Colleagues, guest visitors, and auditors</dt>
+          <dd>Email <a href="mailto:canvas_support@redlands.edu">canvas_support@redlands.edu</a> with the course number and the person you'd like added.</dd>
+        </dl>
+        <ul>
+          <li>Explore options for sharing materials across sections and terms without relying on course shells alone.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article id="t-design" class="theme" data-k="support">
+      <div class="said">
+        <h3>More control over course design</h3>
+        <div class="count">15 comments</div>
+        <p>More visual control over modules, color and layout, folders for readings, moving several items at once, hiding tools you don't use, and HTML that doesn't get stripped from pages. Several of you want a more engaging landing page, more interactive features, easier image and video uploads, and embedded media without needing technical skills or a course designer.</p>
+      </div>
+      <div class="do">
+        <span class="kind">Support and training</span>
+        <ul>
+          <li>Course design consultations with Instructional Design, including layout patterns that work within Canvas's structure.</li>
+          <li>Optional, ready-made page and module templates you can copy into any course.</li>
+          <li>Investigate the reported HTML stripping in module pages and share what we find.</li>
+        </ul>
+        <p class="guides">Canvas removes some HTML by design. The panel below explains what's affected and how to work around it.</p>
+      </div>
+
+      <details class="tracker airesources">
+        <summary>Workarounds when Canvas strips your HTML <span>(5 strategies)</span></summary>
+        <div class="aigrid bp">
+          <div class="aigroup"><h4>Why Canvas strips your HTML</h4><ul><li><span>Canvas only keeps HTML on its approved list. Scripts, &lt;style&gt; blocks, forms, and some attributes are removed when you save, to protect students from malicious code.</span></li><li><span>Nothing is wrong with your course when this happens. It's a security feature, and it applies to every Canvas page.</span></li></ul></div>
+          <div class="aigroup"><h4>Work within the editor first</h4><ul><li><span>Use inline style attributes on elements instead of a &lt;style&gt; block. Most common properties, like color, padding, borders, and backgrounds, are kept.</span></li><li><span>Paste code through the HTML editor (the &lt;/&gt; icon) rather than the visual editor, then save and reopen to see what Canvas kept.</span></li><li><span>Keep a master copy of your HTML outside Canvas so nothing is lost if the editor strips part of it.</span></li></ul></div>
+          <div class="aigroup"><h4>Host full HTML on GitHub Pages</h4><ul><li><span>Create a free GitHub account and a new public repository, then upload your page as index.html with any images, CSS, or JavaScript it needs.</span></li><li><span>In the repository's Settings, open Pages and deploy from the main branch. GitHub gives you a secure address like your-username.github.io/your-repo.</span></li><li><span>Open that address in a browser to confirm everything works before embedding it.</span></li></ul></div>
+          <div class="aigroup"><h4>Embed it in a Canvas page</h4><ul><li><span>Edit the Canvas page, open the HTML editor, and paste an iframe that points to your GitHub Pages address.</span></li><li><span>Give the iframe a descriptive title for screen readers, set the width to 100%, and adjust the height until no scrollbar appears.</span></li><li><span>Check the page in Student View and on a phone to make sure it fits.</span></li></ul></div>
+          <div class="aigroup"><h4>Know the limits</h4><ul><li><span>GitHub Pages sites are public on the web. Never put student information, grades, exams, or licensed materials there.</span></li><li><span>Embedded pages can't see Canvas data or grades. They're for content and interactivity only, not for submitting work.</span></li><li><span>If the embedded page loads tools from other sites, they must use https or the browser will block them.</span></li><li><span>Instructional Design can help you build or review an embedded page. Email <a href="mailto:canvas_support@redlands.edu">canvas_support@redlands.edu</a> to set up a time.</span></li></ul></div>
+        </div>
+        <div class="snippet"><div class="snippet-head"><span>Example iframe to paste into the Canvas HTML editor</span><button type="button" class="copy-btn" aria-live="polite">Copy HTML</button></div><pre><code>&lt;iframe src=&quot;https://your-username.github.io/your-repo/&quot; title=&quot;Interactive unit overview&quot; width=&quot;100%&quot; height=&quot;600&quot; style=&quot;border: 0;&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;</code></pre></div>
+      </details>
+    </article>
+
+    <article id="t-files" class="theme" data-k="support policy">
+      <div class="said">
+        <h3>Files, visibility, and setting up a new term</h3>
+        <div class="count">3 comments</div>
+        <p>Old exams you unpublished were still reachable through Files. Cleaning up files after a course copy is tedious one by one, and scheduled availability didn't behave as expected for at least one of you.</p>
+      </div>
+      <div class="do">
+        <span class="kind">Support and training, plus a settings review</span>
+        <ul>
+          <li>A term-rollover checklist covering selective course import, bulk file cleanup, hiding the Files page from students, and checking with Student View.</li>
+          <li>Drop-in rollover help before each term starts.</li>
+          <li>Review whether new course shells should hide Files from students by default.</li>
+        </ul>
+      </div>
+
+      <details class="tracker airesources">
+        <summary>Best practices for files, visibility, and a new term <span>(5 strategies)</span></summary>
+        <div class="aigrid bp">
+          <div class="aigroup"><h4>Keep sensitive files out of reach</h4><ul><li><span>Unpublishing a quiz or page doesn't hide the files attached to it. Unpublish or restrict the file itself in Files as well.</span></li><li><span>Keep exams and answer keys in their own folder and leave that folder unpublished, so everything inside stays hidden.</span></li><li><span>Hiding the Files link in Settings, then Navigation, removes the page from students' view, but files linked from published pages can still be opened. Check those links too.</span></li><li><span>Better still, keep answer keys out of the course entirely, in your personal Canvas files or University cloud storage.</span></li></ul></div>
+          <div class="aigroup"><h4>Make scheduled availability behave</h4><ul><li><span>Set available-from and available-until dates on the file or folder itself, using Schedule student availability.</span></li><li><span>A file inside an unpublished or restricted folder stays hidden even if the file's own dates have passed. Check the folder settings first.</span></li><li><span>Dates follow your Canvas time zone, so confirm your profile's time zone is set correctly.</span></li><li><span>After setting dates, check what students will see in Student View.</span></li></ul></div>
+          <div class="aigroup"><h4>Start the term with less to clean up</h4><ul><li><span>Import into a fresh, empty course shell rather than one that already has content.</span></li><li><span>Choose Select specific content during import, and bring over only the modules, assignments, and files you plan to use.</span></li><li><span>Use the date-adjustment option during import to shift due dates and availability to the new term in one step.</span></li></ul></div>
+          <div class="aigroup"><h4>Clean up files in bulk</h4><ul><li><span>In Files, check the boxes next to several files to delete or move them together instead of one at a time.</span></li><li><span>Organize files into folders by unit or type before you copy a course, so next term's cleanup is a matter of deleting a folder.</span></li></ul></div>
+          <div class="aigroup"><h4>Check before students arrive</h4><ul><li><span>Walk through modules, pages, and files in Student View before publishing.</span></li><li><span>Run Validate Links in Content from the course Settings sidebar to catch broken links after an import.</span></li><li><span>Book drop-in rollover help or email <a href="mailto:canvas_support@redlands.edu">canvas_support@redlands.edu</a> before the term starts if anything looks off.</span></li></ul></div>
+        </div>
+      </details>
+    </article>
+
+    <article id="t-quizzes" class="theme" data-k="support vendor">
+      <div class="said">
+        <h3>Quizzes and assessment</h3>
+        <div class="count">6 comments</div>
+        <p>Frustrating question banks, chained quantitative questions, reordering rubric items, grading the quality of peer reviewers, and built-in online proctoring.</p>
+      </div>
+      <div class="do">
+        <span class="kind">Support and training, plus requests to Instructure</span>
+        <ul>
+          <li>Sessions on building and organizing question banks so your work is easier to reuse and to protect.</li>
+          <li>Submit the features Canvas lacks to Instructure and report back on responses.</li>
+          <li>We're exploring online proctoring and academic honesty tools that work inside Canvas quizzes and assessments. Any tool we consider will go through the same security and privacy review as other integrations before it reaches your courses.</li>
+        </ul>
+        <p class="guides">Guides available now: <a href="https://redlands.instructure.com/courses/9979/pages/quizzes" target="_blank" rel="noopener">quizzes</a> and <a href="https://redlands.instructure.com/courses/9979/pages/rubrics" target="_blank" rel="noopener">rubrics, including the new rubric editor</a>.</p>
+      </div>
+    </article>
+
+    <article id="t-ai" class="theme" data-k="policy">
+      <div class="said">
+        <h3>AI features inside Canvas</h3>
+        <div class="count">7 comments, with differing views</div>
+        <p>Several of you want built-in AI features off by default because they conflict with the learning and intellectual property principles you teach. Others asked for help detecting AI use and plagiarism, and one asked for more AI automation.</p>
+      </div>
+      <div class="do">
+        <span class="kind">Policy and settings</span>
+        <ul>
+          <li>Publish a plain-language list of which AI features are active in Canvas and who controls them.</li>
+          <li>Review default settings with faculty input so instructors keep control in their own courses.</li>
+          <li>Give advance notice before any new AI feature is turned on.</li>
+          <li>For help identifying AI misuse, we're exploring academic honesty tools alongside online proctoring (see Quizzes and assessment).</li>
+        </ul>
+        <p class="guides">Instructors can already switch available AI features on or off in their own course under Settings, then Feature Options. See the guides below.</p>
+      </div>
+      <details class="tracker airesources">
+        <summary>AI resources for faculty <span>(9 guides)</span></summary>
+        <div class="aigrid">
+          <div class="aigroup"><h4>Know what AI is in Canvas</h4><ul><li><a href="https://www.instructure.com/igniteai" target="_blank" rel="noopener">IgniteAI overview</a><span>Instructure's summary of the AI built into Canvas, including its opt-in design and pledge not to train models on institutional data without consent.</span></li><li><a href="https://community.canvaslms.com/t5/Artificial-Intelligence-in/gh-p/ai_education" target="_blank" rel="noopener">AI Nutrition Facts hub</a><span>A label for each Instructure AI feature explaining the model it uses, what data it touches, and how that data is handled.</span></li><li><a href="https://www.instructure.com/about/ai-guiding-principles" target="_blank" rel="noopener">Instructure's AI guiding principles</a><span>The commitments Instructure says it follows when building AI into Canvas.</span></li></ul></div>
+          <div class="aigroup"><h4>Features you may see in your course</h4><ul><li><a href="https://community.canvaslms.com/t5/Artificial-Intelligence-in/AI-Nutrition-Facts-Canvas-Discussion-Summaries/ta-p/608252" target="_blank" rel="noopener">Discussion Summaries</a><span>Instructor-only summaries of discussion threads. Nutrition facts and data handling.</span></li><li><a href="https://community.canvaslms.com/t5/Artificial-Intelligence-in/AI-Nutrition-Facts-Canvas-Smart-Search/ta-p/608254" target="_blank" rel="noopener">Smart Search</a><span>AI-powered search across course content. Nutrition facts and data handling.</span></li><li><a href="https://community.canvaslms.com/t5/Artificial-Intelligence-in/AI-Nutrition-Facts-Canvas-Inbox-and-Course-AI-Translation/ta-p/608256" target="_blank" rel="noopener">Inbox and Course Translation</a><span>AI translation in the Inbox, Discussions, and Announcements. Nutrition facts and data handling.</span></li></ul></div>
+          <div class="aigroup"><h4>Turn features on or off in your course</h4><ul><li><a href="https://community.canvaslms.com/docs/DOC-2283" target="_blank" rel="noopener">How to manage course feature options</a><span>Step-by-step guide to Settings, then Feature Options, where instructors can switch available AI previews on or off course by course.</span></li></ul></div>
+          <div class="aigroup"><h4>Set expectations with your students</h4><ul><li><a href="https://www.brandeis.edu/teaching/online-guides/syllabus/ai-statements.html" target="_blank" rel="noopener">AI syllabus statement templates (Brandeis University)</a><span>Four ready-to-adapt policies, from no AI use at all to open use with citation.</span></li><li><a href="https://academic-senate.berkeley.edu/sites/default/files/genai_guidance_for_instructors_2025.pdf" target="_blank" rel="noopener">Generative AI guidance for instructors (UC Berkeley Academic Senate)</a><span>Arguments for and against allowing AI, sample syllabus statements, and ways to reinforce your policy in assignments.</span></li></ul></div>
+        </div>
+        <p class="ainote">Instructure resources describe Canvas features in general. Which features are available, and whether they're on by default, depends on Redlands settings, so check your course's Feature Options or contact <a href="mailto:canvas_support@redlands.edu">canvas_support@redlands.edu</a>.</p>
+      </details>
+    </article>
+
+    <article id="t-integrations" class="theme" data-k="policy">
+      <div class="said">
+        <h3>Integrations with the tools you use</h3>
+        <div class="count">7 comments, and 18% disagreed that integrations work well</div>
+        <p>Publisher textbook content, chat tools, collaboration features closer to Microsoft Teams, a shared whiteboard, and more freedom to connect external tools without waiting on administrative review.</p>
+      </div>
+      <div class="do">
+        <span class="kind">Policy and settings</span>
+        <p class="why"><strong>Why tools still need a review.</strong> When a third-party tool connects to Canvas, it can gain access to course content and student records. Cybersecurity threats increasingly target exactly these connections, and a poorly secured tool can expose data the University is legally required to protect. That's why IT keeps administrative oversight of every integration. Our goal is to make that review faster and clearer, not to remove it.</p>
+        <ul>
+          <li>Request new tools through our existing integration process, explained in the external connections guide below, so each request is tracked and you know when to expect an answer.</li>
+          <li>Security and privacy review of each tool before it connects, covering what data it can reach and how that data is protected.</li>
+          <li>A public list of tools already approved and connected to Canvas.</li>
+        </ul>
+        <p class="guides">Guide available now: <a href="https://redlands.instructure.com/courses/9979/pages/external-connection?module_item_id=401639" target="_blank" rel="noopener">external connections and integrations</a>.</p>
+      </div>
+    </article>
+
+    <article id="t-inbox" class="theme" data-k="support vendor">
+      <div class="said">
+        <h3>The Inbox and Canvas updates</h3>
+        <div class="count">Several comments across the survey</div>
+        <p>Messages lost when pressing Escape in the Inbox, awkward ways to reach individual students, and changes from Instructure that arrive without warning or clear explanation.</p>
+      </div>
+      <div class="do">
+        <span class="kind">Support and training, plus escalation to Instructure</span>
+        <ul>
+          <li>Reproduce the reported Inbox issues, share workarounds, and escalate confirmed bugs to Instructure.</li>
+          <li>A short note before each term summarizing Canvas changes that affect your teaching.</li>
+          <li>Track vendor support problems on your behalf so you don't have to chase them alone.</li>
+        </ul>
+      </div>
+
+      <details class="tracker airesources">
+        <summary>Best practices for the Inbox and Canvas updates <span>(5 strategies)</span></summary>
+        <div class="aigrid bp">
+          <div class="aigroup"><h4>Write messages that don't get lost</h4><ul><li><span>Draft longer messages in a document first, then paste them into the Inbox. Pressing Escape or clicking outside the compose window can close it before you send.</span></li><li><span>After sending, check your Sent folder to confirm the message went out.</span></li></ul></div>
+          <div class="aigroup"><h4>Reach the right student, privately</h4><ul><li><span>In the Inbox, filter by course first, then pick the individual student from the address book.</span></li><li><span>When messaging several students at once, choose the option to send an individual message to each recipient. Each student gets a private copy, and replies come back only to you.</span></li><li><span>To reach students based on their work, use the Gradebook's message option on an assignment. It can target students who haven't submitted or who scored below a set score.</span></li><li><span>Use SpeedGrader comments for feedback on a specific submission, and Announcements for anything the whole class needs.</span></li></ul></div>
+          <div class="aigroup"><h4>Make sure messages are seen</h4><ul><li><span>Set your Canvas notification preferences so Inbox messages also reach your email. Replying to a Canvas notification email sends your reply back through the Inbox.</span></li><li><span>State in your syllabus which channel you'll use and how quickly you respond, and remind students to check their own notification settings in the first week.</span></li></ul></div>
+          <div class="aigroup"><h4>Stay ahead of Canvas changes</h4><ul><li><span><a href="https://community.canvaslms.com/docs/DOC-1271-all-about-canvas-release-notes" target="_blank" rel="noopener">Canvas release notes</a> are published monthly, ahead of changes. You can subscribe in the Instructure Community.</span></li><li><span>Features tagged “Feature Preview” are still in development and can change outside the regular release schedule. Avoid relying on them mid-term.</span></li><li><span>Before troubleshooting an outage, check <a href="https://status.instructure.com/" target="_blank" rel="noopener">Instructure’s status page</a>.</span></li><li><span>After a term-start update, open your course in Student View to confirm everything still looks the way you expect.</span></li></ul></div>
+          <div class="aigroup"><h4>Report a problem so it gets fixed</h4><ul><li><span>Email <a href="mailto:canvas_support@redlands.edu">canvas_support@redlands.edu</a> with the course and item, the steps you took, what happened compared with what you expected, the date and time, your browser or device, and a screenshot.</span></li><li><span>Those details let us reproduce the issue quickly and escalate confirmed bugs to Instructure with evidence attached.</span></li></ul></div>
+        </div>
+      </details>
+    </article>
+  </div>
+</section>
+
+<section id="timeline">
+  <div class="wrap">
+    <h2>When you'll see it</h2>
+    <div class="prose"><p class="lede">We're starting with the areas where the data showed the most friction.</p></div>
+    <ol class="timeline">
+      <li>
+        <div class="when">Now</div>
+        <ul>
+          <li>One-on-one appointments: <a href="https://outlook.office365.com/owa/calendar/InstructionalTechnologyServices@uredlands.onmicrosoft.com/bookings/" target="_blank" rel="noopener">book a time</a></li>
+          <li>Integration requests: <a href="#t-integrations">guide available now</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="when">Next term</div>
+        <ul>
+          <li>AI feature list and default settings review</li>
+          <li>Term-rollover checklist published</li>
+        </ul>
+      </li>
+      <li>
+        <div class="when">Ongoing</div>
+        <ul>
+          <li>Course design consultations and templates</li>
+          <li>Feature requests to Instructure, with updates</li>
+          <li>Evaluation of proctoring and academic honesty tools</li>
+          <li>Term-start notes on Canvas changes</li>
+          <li>Progress posted on this page each term</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="loop">
+  <div class="wrap">
+    <h2>Keeping the loop open</h2>
+    <div class="loop-grid">
+      <div>
+        <h3>If Canvas isn't working for you</h3>
+        <p>Ten of you rated Canvas as not meeting your needs, and your comments were some of the most specific we received. Please take us up on a <a href="https://outlook.office365.com/owa/calendar/InstructionalTechnologyServices@uredlands.onmicrosoft.com/bookings/" target="_blank" rel="noopener">one-on-one session</a>. Your frustrations are the fastest way for us to find what needs fixing.</p>
+      </div>
+      <div>
+        <h3>If your concern isn't here</h3>
+        <p>Contact the IT Help Desk or your instructional designer. Nothing you raise needs to wait for the next survey.</p>
+      </div>
+      <div>
+        <h3>How you'll know we followed through</h3>
+        <p>We'll update this page each term with what's done, what's in progress, and what Instructure said about your feature requests. A short follow-up survey next year will tell us whether things improved.</p>
+      </div>
+    </div>
+    <div class="resources">
+      <h3>Canvas guides you can use today</h3>
+      <p>These pages in our Canvas faculty resource course already answer several of the questions you raised.</p>
+      <ul>
+        <li><a href="https://redlands.instructure.com/courses/9979/pages/advance-assignments" target="_blank" rel="noopener">Weighting and advanced assignments</a><span>Assignment group weights, drop rules, and peer review</span></li>
+        <li><a href="https://redlands.instructure.com/courses/9979/pages/grading-schemes-and-transfering-grades-to-colleague" target="_blank" rel="noopener">Grading schemes and transferring grades to Colleague</a><span>Letter grades and how scores convert</span></li>
+        <li><a href="https://redlands.instructure.com/courses/9979/pages/rubrics" target="_blank" rel="noopener">Rubrics</a><span>The new rubric editor, including reordering criteria</span></li>
+        <li><a href="https://redlands.instructure.com/courses/9979/pages/quizzes" target="_blank" rel="noopener">Quizzes</a><span>Building, organizing, and weighting quizzes</span></li>
+        <li><a href="https://redlands.instructure.com/courses/9979/pages/cross-listing" target="_blank" rel="noopener">Cross-listing</a><span>Combining sections in a single course</span></li>
+        <li><a href="https://redlands.instructure.com/courses/9979/pages/external-connection?module_item_id=401639" target="_blank" rel="noopener">External connections</a><span>Connecting publisher content and other tools to Canvas</span></li>
+        <li><a href="https://community.canvaslms.com/docs/DOC-2283" target="_blank" rel="noopener">Course feature options</a><span>Turning AI features on or off in your course</span></li>
+      </ul>
+    </div>
+    <p class="sign">Thank you for helping shape this decision.<span>Cheyne Murray, Senior Director of Information Technology</span></p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">University of Redlands Information Technology, Canvas Reflection Survey, fall 2026</div>
+</footer>
+
+<script>
+(function(){
+  // Hero dot matrix: 89 responses to "Overall, Canvas meets the needs of my teaching"
+  var counts=[['sa',45],['a',34],['d',5],['sd',5]];
+  var dots=document.getElementById('dots'), list=[];
+  counts.forEach(function(c){for(var i=0;i<c[1];i++){var li=document.createElement('li');li.className='dot '+c[0];dots.appendChild(li);list.push(li);}});
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){list.forEach(function(d){d.classList.add('on')});}
+  else{list.forEach(function(d,i){setTimeout(function(){d.classList.add('on')},250+i*22)});}
+
+  // Diverging Likert bars
+  var items=[
+    {q:'Canvas is easy to use for building and organizing my course content',sd:4,d:7,a:32,sa:46},
+    {q:'The gradebook meets my needs for recording and communicating grades',sd:6,d:8,a:36,sa:38,flag:1},
+    {q:'Communication tools work well for reaching students',sd:3,d:6,a:43,sa:34},
+    {q:'Canvas integrates well with the tools I need',sd:6,d:9,a:41,sa:28,flag:1},
+    {q:'Canvas is reliable',sd:6,d:2,a:32,sa:48},
+    {q:'Overall, Canvas meets the needs of my teaching and course design',sd:5,d:5,a:34,sa:45}
+  ];
+  var L=25, R=100, T=L+R, host=document.getElementById('likert');
+  items.forEach(function(it){
+    var n=it.sd+it.d+it.a+it.sa, p=function(v){return v/n*100};
+    var agree=Math.round(p(it.a+it.sa));
+    var zero=L/T*100;
+    var row=document.createElement('div'); row.className='lrow'+(it.flag?' flag':''); row.setAttribute('role','listitem');
+    var names={sd:'Strongly disagree',d:'Disagree',a:'Agree',sa:'Strongly agree'};
+    var segs=[
+      ['d', zero-p(it.d)/T*100, p(it.d)/T*100, it.d],
+      ['sd', zero-p(it.d+it.sd)/T*100, p(it.sd)/T*100, it.sd],
+      ['a', zero, p(it.a)/T*100, it.a],
+      ['sa', zero+p(it.a)/T*100, p(it.sa)/T*100, it.sa]
+    ].map(function(s){
+      var pc=Math.round(p(s[3]));
+      return '<span class="seg '+s[0]+'" tabindex="0" data-label="'+names[s[0]]+'" data-pct="'+pc+'" data-n="'+s[3]+'" data-total="'+n+'" aria-label="'+names[s[0]]+': '+pc+'%, '+s[3]+' of '+n+'" style="left:'+s[1]+'%;width:'+s[2]+'%"></span>'}).join('');
+    row.innerHTML='<div class="q">'+it.q+'</div>'+
+      '<div class="track" role="group" aria-label="'+agree+'% agree, '+(100-agree)+'% disagree, '+n+' responses">'+segs+'<span class="axis" style="left:'+zero+'%"></span></div>'+
+      '<div class="pct">'+agree+'%</div>';
+    host.appendChild(row);
+  });
+
+  // Theme bars for open-ended questions
+  function bars(id,data,total){
+    var h=document.getElementById(id);
+    data.forEach(function(c){
+      var pct=Math.round(c[1]/total*100);
+      var d=document.createElement('div'); d.className='hbar';
+      d.innerHTML='<div class="top"><span>'+c[0]+'</span><b>'+pct+'%<small> '+c[1]+' of '+total+'</small></b></div><div class="bar" role="img" aria-label="'+c[0]+': '+pct+'%, '+c[1]+' of '+total+'"><div class="fill" style="width:'+pct+'%"></div></div>';
+      h.appendChild(d);
+    });
+  }
+  bars('concernBars',[
+    ['Content migration or loss',55],['Retraining and the learning curve',51],['Both of those together',36],
+    ['Time, workload, or burnout',16],['Prefer Canvas or oppose a switch',14],['Fatigue from past LMS changes',10],
+    ['Disruption to students, faculty, or IT',10],['Cost, trust, or faculty buy-in',7]],81);
+  bars('commentBars',[
+    ['Positive assessment of Canvas',21],['Explicit preference to keep Canvas',15],['Transition workload or disruption',15],
+    ['Product limitations or criticisms',14],['Impact on faculty and students',13],['Fatigue from past platform changes',9],
+    ['Praise for Redlands support',3],['AI-related concerns',2]],46);
+
+  // Hover / focus / tap tooltip for rating segments
+  var tip=document.createElement('div'); tip.className='tip'; tip.setAttribute('role','tooltip'); document.body.appendChild(tip);
+  function show(seg,x,y){
+    tip.innerHTML='<b>'+seg.dataset.pct+'%</b> '+seg.dataset.label+'<span>'+seg.dataset.n+' of '+seg.dataset.total+' responses</span>';
+    tip.classList.add('on');
+    var r=tip.getBoundingClientRect(), vw=document.documentElement.clientWidth;
+    var left=Math.min(Math.max(8,x-r.width/2),vw-r.width-8);
+    var top=y-r.height-14; if(top<8) top=y+18;
+    tip.style.left=left+'px'; tip.style.top=top+'px';
+    host.querySelectorAll('.seg.active').forEach(function(e){if(e!==seg)e.classList.remove('active')});
+    seg.classList.add('active');
+  }
+  function hide(){tip.classList.remove('on'); host.querySelectorAll('.seg.active').forEach(function(e){e.classList.remove('active')});}
+  host.addEventListener('mousemove',function(e){var seg=e.target.closest('.seg'); if(seg) show(seg,e.clientX,e.clientY); else hide();});
+  host.addEventListener('mouseleave',hide);
+  host.addEventListener('focusin',function(e){var seg=e.target.closest('.seg'); if(!seg)return; var r=seg.getBoundingClientRect(); show(seg,r.left+r.width/2,r.top);});
+  host.addEventListener('focusout',hide);
+  host.addEventListener('click',function(e){var seg=e.target.closest('.seg'); if(seg){var r=seg.getBoundingClientRect(); show(seg,r.left+r.width/2,r.top);}});
+  window.addEventListener('scroll',hide,{passive:true});
+
+  // Jump links: make sure the target theme is visible
+  document.querySelectorAll('.jumpbar a').forEach(function(a){a.addEventListener('click',function(){
+    var all=document.querySelector('.filters button[data-f="all"]'); if(all) all.click();
+  })});
+  // Copy buttons for code snippets
+  document.querySelectorAll('.copy-btn').forEach(function(btn){btn.addEventListener('click',function(){
+    var code=btn.closest('.snippet').querySelector('code').textContent;
+    function ok(){btn.textContent='Copied';btn.classList.add('done');setTimeout(function(){btn.textContent='Copy HTML';btn.classList.remove('done')},2000)}
+    function fallback(){var t=document.createElement('textarea');t.value=code;t.setAttribute('readonly','');t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();try{document.execCommand('copy');ok()}catch(e){btn.textContent='Press Ctrl+C'}document.body.removeChild(t)}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(code).then(ok,fallback)}else{fallback()}
+  })});
+
+  // Theme filters
+  var btns=document.querySelectorAll('.filters button'), themes=document.querySelectorAll('.theme');
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    var f=b.getAttribute('data-f');
+    btns.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+    themes.forEach(function(t){t.hidden=!(f==='all'||t.getAttribute('data-k').split(' ').indexOf(f)>-1)});
+  })});
+})();
+</script>
+</body>
+</html>
